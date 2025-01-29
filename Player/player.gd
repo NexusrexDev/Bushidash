@@ -6,7 +6,6 @@ signal focus_updated(focus: float)
 @export var hp: int = 3 : set = _set_hp
 @export var focus: float = 1 : set = _set_focus
 
-@export var _dash_timer : Timer
 @export var _iframes_timer : Timer
 @export var _attack_area : Area2D
 @export var _hurt_component : HurtComponent
@@ -52,7 +51,6 @@ func start_dash(direction: Vector2) -> void:
 	_can_dash = false
 
 	_target_velocity = direction * _dash_speed
-	_dash_timer.start()
 	focus = 0
 
 	_attack_area.process_mode = Node.PROCESS_MODE_INHERIT
@@ -69,14 +67,18 @@ func _on_cooldown_timer_timeout() -> void:
 
 func _physics_process(delta: float) -> void:
 	if _is_dashing:
+		var speed : float = _target_velocity.length()
+		speed = max(0, speed - 4000 * delta)
+		_target_velocity = _target_velocity.normalized() * speed
+
 		var coll := move_and_collide(_target_velocity * delta)
-		if coll:
+		if coll or speed <= 0:
 			end_dash()
 
 func _on_hurt_component_damage() -> void:
 	if _iframes_timer.is_stopped():
 		hp -= 1
-		print("HP: ", hp)
+		GameManager.reset_combo()
 		_iframes_timer.start()
 		if hp <= 0:
 			GameManager.restart_game()

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkikmnl820dgi"]
+
+[ext_resource type="Texture2D" uid="uid://pcbvwgtr02il" path="res://UI/Pointer.png" id="1_dg2g5"]
+[ext_resource type="Script" path="res://UI/pointer.gd" id="2_nacjs"]
+
+[node name="Pointer" type="Sprite2D"]
+texture = ExtResource("1_dg2g5")
+centered = false
+offset = Vector2(-8, -8)
+script = ExtResource("2_nacjs")

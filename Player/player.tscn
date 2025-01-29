@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bt0ob3h3frjya"]
+[gd_scene load_steps=10 format=3 uid="uid://bt0ob3h3frjya"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_bya84"]
+[ext_resource type="PackedScene" uid="uid://bkikmnl820dgi" path="res://UI/pointer.tscn" id="2_m0lfc"]
 [ext_resource type="Texture2D" uid="uid://dlp4rlpdojk5k" path="res://Player/PlayerBody.png" id="2_p7gu6"]
 [ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_awalr"]
 [ext_resource type="PackedScene" uid="uid://cmmsbrpej44j4" path="res://Particles/dust_particles.tscn" id="3_h1q21"]
+[ext_resource type="PackedScene" uid="uid://cbivcdy3q0y3" path="res://Particles/trail.tscn" id="5_wxoc8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgeqb"]
 size = Vector2(32, 32)
@@ -17,11 +19,15 @@ size = Vector2(16, 16)
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_dash_timer", "_iframes_timer", "_attack_area", "_hurt_component", "sprite")]
 motion_mode = 1
 script = ExtResource("1_bya84")
-_dash_timer = NodePath("DashTimer")
+hp = null
+focus = null
+_dash_timer = NodePath("")
 _iframes_timer = NodePath("IFrameTimer")
 _attack_area = NodePath("AttackArea")
 _hurt_component = NodePath("HurtComponent")
 sprite = NodePath("Sprite2D")
+
+[node name="Pointer" parent="." instance=ExtResource("2_m0lfc")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_p7gu6")
@@ -34,10 +40,6 @@ amount = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xgeqb")
-
-[node name="DashTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
 
 [node name="IFrameTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -55,5 +57,6 @@ _damage_group = &"enemy"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
 shape = SubResource("RectangleShape2D_ulqub")
 
-[connection signal="timeout" from="DashTimer" to="." method="end_dash"]
+[node name="Trail" parent="." instance=ExtResource("5_wxoc8")]
+
 [connection signal="damage" from="HurtComponent" to="." method="_on_hurt_component_damage"]
