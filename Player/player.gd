@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
-@export var hp: int = 3
+signal hp_updated(hp: int)
+signal focus_updated(focus: float)
 
-@export var _cooldown_duration : float = 0.75
-@export var _cooldown_timer : Timer
+@export var hp: int = 3 : set = _set_hp
+@export var focus: float = 1 : set = _set_focus
+
 @export var _dash_timer : Timer
 @export var _iframes_timer : Timer
 @export var _attack_area : Area2D
-@export var _hurt_area : Area2D
+@export var _hurt_component : HurtComponent
+@export var sprite : Sprite2D
 
 var _can_dash : bool = true
 var _is_dashing : bool = false
@@ -17,6 +20,21 @@ var _target_velocity : Vector2 = Vector2.ZERO
 func _ready() -> void:
 	_attack_area.process_mode = Node.PROCESS_MODE_DISABLED
 
+func _set_hp(value: int) -> void:
+	hp = value
+	emit_signal(hp_updated.get_name(), hp)
+
+func _set_focus(value: float) -> void:
+	focus = clampf(value, 0, 1)
+	emit_signal(focus_updated.get_name(), focus)
+
+func _process(delta: float) -> void:
+	if not _can_dash:
+		focus += (1.5 + (GameManager.combo * 0.5)) * delta
+		if is_equal_approx(focus, 1):
+			focus = 1
+			_can_dash = true
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_click") and _can_dash:
 		var mouse_event: InputEventMouse = event
@@ -25,21 +43,26 @@ func _input(event: InputEvent) -> void:
 		start_dash(direction)
 
 func start_dash(direction: Vector2) -> void:
+	if direction.x < 0:
+		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
+	
 	_is_dashing = true
 	_can_dash = false
 
 	_target_velocity = direction * _dash_speed
 	_dash_timer.start()
-	_cooldown_timer.start(_cooldown_duration)
+	focus = 0
 
 	_attack_area.process_mode = Node.PROCESS_MODE_INHERIT
-	_hurt_area.process_mode = Node.PROCESS_MODE_DISABLED
+	_hurt_component.process_mode = Node.PROCESS_MODE_DISABLED
 
 func end_dash() -> void:
 	_is_dashing = false
 	_target_velocity = Vector2.ZERO
 	_attack_area.process_mode = Node.PROCESS_MODE_DISABLED
-	_hurt_area.process_mode = Node.PROCESS_MODE_INHERIT
+	_hurt_component.process_mode = Node.PROCESS_MODE_INHERIT
 
 func _on_cooldown_timer_timeout() -> void:
 	_can_dash = true
@@ -50,8 +73,8 @@ func _physics_process(delta: float) -> void:
 		if coll:
 			end_dash()
 
-func _on_hurt_area_area_entered(area:Area2D) -> void:
-	if area.is_in_group("enemy") and _iframes_timer.is_stopped():
+func _on_hurt_component_damage() -> void:
+	if _iframes_timer.is_stopped():
 		hp -= 1
 		print("HP: ", hp)
 		_iframes_timer.start()

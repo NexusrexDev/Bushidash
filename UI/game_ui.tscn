@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxnj2pohppnwy"]
+
+[ext_resource type="Script" path="res://UI/game_ui.gd" id="1_gcs5s"]
+
+[node name="GameUI" type="Control" node_paths=PackedStringArray("_hp_label", "_focus_label", "_score_label", "_combo_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gcs5s")
+_hp_label = NodePath("HBoxContainer/HPLabel")
+_focus_label = NodePath("HBoxContainer/FocusLabel")
+_score_label = NodePath("HBoxContainer/ScoreLabel")
+_combo_label = NodePath("HBoxContainer/ComboLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HPLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "HP: x"
+
+[node name="FocusLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Focus: xxx"
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Score: xxx"
+
+[node name="ComboLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Combo:x"

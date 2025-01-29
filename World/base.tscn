@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://ck85fc4pp3m7s"]
+[gd_scene load_steps=6 format=3 uid="uid://ck85fc4pp3m7s"]
 
 [ext_resource type="PackedScene" uid="uid://bt0ob3h3frjya" path="res://Player/player.tscn" id="1_p2kjh"]
+[ext_resource type="PackedScene" uid="uid://d2wd4m1p3pckq" path="res://World/spawner.tscn" id="2_vck6x"]
+[ext_resource type="PackedScene" uid="uid://bxnj2pohppnwy" path="res://UI/game_ui.tscn" id="3_4qyxa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ng20a"]
-size = Vector2(416, 32)
+size = Vector2(416, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8hgkj"]
-size = Vector2(32, 360)
+size = Vector2(64, 400)
 
 [node name="Base" type="Node2D"]
 
@@ -14,19 +16,29 @@ size = Vector2(32, 360)
 position = Vector2(240, 180)
 
 [node name="Wall" type="StaticBody2D" parent="." groups=["Wall"]]
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2(240, 16)
+position = Vector2(240, 4)
 shape = SubResource("RectangleShape2D_ng20a")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Wall"]
-position = Vector2(240, 344)
+position = Vector2(240, 356)
 shape = SubResource("RectangleShape2D_ng20a")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Wall"]
-position = Vector2(16, 180)
+position = Vector2(0, 184)
 shape = SubResource("RectangleShape2D_8hgkj")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Wall"]
-position = Vector2(464, 180)
+position = Vector2(480, 184)
 shape = SubResource("RectangleShape2D_8hgkj")
+
+[node name="Spawner" parent="." instance=ExtResource("2_vck6x")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUI" parent="CanvasLayer" instance=ExtResource("3_4qyxa")]
+
+[connection signal="focus_updated" from="Player" to="CanvasLayer/GameUI" method="_on_focus_updated"]
+[connection signal="hp_updated" from="Player" to="CanvasLayer/GameUI" method="_on_hp_updated"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://co284hq4w1ne1"]
+
+[ext_resource type="Script" path="res://Enemies/Ranger/projectile.gd" id="1_6dfoy"]
+[ext_resource type="Texture2D" uid="uid://b1anqv5k71ndd" path="res://Enemies/Ranger/Projectile.png" id="2_3ubte"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqrty"]
+size = Vector2(24, 24)
+
+[node name="Projectile" type="Area2D" groups=["enemy"]]
+script = ExtResource("1_6dfoy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3ubte")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tqrty")

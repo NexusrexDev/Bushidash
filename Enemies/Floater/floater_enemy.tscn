@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm02i85k6iu8h"]
+
+[ext_resource type="Texture2D" uid="uid://dhpeaseegkn12" path="res://icon.svg" id="1_img5k"]
+[ext_resource type="Script" path="res://Enemies/Floater/floater_enemy.gd" id="1_wlemo"]
+[ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_kfum8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ueqyv"]
+size = Vector2(32, 32)
+
+[node name="FloaterEnemy" type="Area2D" node_paths=PackedStringArray("_move_timer", "_ray_north", "_ray_east", "_ray_south", "_ray_west") groups=["enemy"]]
+script = ExtResource("1_wlemo")
+_move_timer = NodePath("MoveTimer")
+_ray_north = NodePath("RayNorth")
+_ray_east = NodePath("RayEast")
+_ray_south = NodePath("RaySouth")
+_ray_west = NodePath("RayWest")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_img5k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ueqyv")
+
+[node name="RayNorth" type="RayCast2D" parent="."]
+target_position = Vector2(0, -40)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="RayEast" type="RayCast2D" parent="."]
+target_position = Vector2(40, 0)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="RaySouth" type="RayCast2D" parent="."]
+target_position = Vector2(0, 40)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="RayWest" type="RayCast2D" parent="."]
+target_position = Vector2(-40, 0)
+collision_mask = 2
+hit_from_inside = true
+
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="HurtComponent" type="Area2D" parent="."]
+script = ExtResource("3_kfum8")
+_damage_group = &"player_attack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+shape = SubResource("RectangleShape2D_ueqyv")
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="damage" from="HurtComponent" to="." method="_on_hurt_component_damage"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmmsbrpej44j4"]
+
+[ext_resource type="Texture2D" uid="uid://qsl548ukjdo1" path="res://Particles/Dust.png" id="1_fw802"]
+
+[sub_resource type="Curve" id="Curve_xj4nj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.652672, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="DustParticles" type="CPUParticles2D"]
+amount = 12
+texture = ExtResource("1_fw802")
+gravity = Vector2(0, 0)
+scale_amount_min = 0.3
+scale_amount_curve = SubResource("Curve_xj4nj")

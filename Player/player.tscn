@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bt0ob3h3frjya"]
+[gd_scene load_steps=8 format=3 uid="uid://bt0ob3h3frjya"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_bya84"]
-[ext_resource type="Texture2D" uid="uid://dhpeaseegkn12" path="res://icon.svg" id="1_ce4u0"]
+[ext_resource type="Texture2D" uid="uid://dlp4rlpdojk5k" path="res://Player/PlayerBody.png" id="2_p7gu6"]
+[ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_awalr"]
+[ext_resource type="PackedScene" uid="uid://cmmsbrpej44j4" path="res://Particles/dust_particles.tscn" id="3_h1q21"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgeqb"]
 size = Vector2(32, 32)
@@ -9,26 +11,29 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_haffy"]
 size = Vector2(48, 48)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gt1bn"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ulqub"]
+size = Vector2(16, 16)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_cooldown_timer", "_dash_timer", "_iframes_timer", "_attack_area", "_hurt_area")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_dash_timer", "_iframes_timer", "_attack_area", "_hurt_component", "sprite")]
 motion_mode = 1
 script = ExtResource("1_bya84")
-_cooldown_timer = NodePath("CooldownTimer")
 _dash_timer = NodePath("DashTimer")
 _iframes_timer = NodePath("IFrameTimer")
 _attack_area = NodePath("AttackArea")
-_hurt_area = NodePath("HurtArea")
+_hurt_component = NodePath("HurtComponent")
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_ce4u0")
+texture = ExtResource("2_p7gu6")
+offset = Vector2(0, -4)
+
+[node name="DustParticles" parent="Sprite2D" instance=ExtResource("3_h1q21")]
+z_index = -2
+position = Vector2(-6, 6)
+amount = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_xgeqb")
-
-[node name="CooldownTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -43,11 +48,12 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("RectangleShape2D_haffy")
 
-[node name="HurtArea" type="Area2D" parent="."]
+[node name="HurtComponent" type="Area2D" parent="."]
+script = ExtResource("3_awalr")
+_damage_group = &"enemy"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
-shape = SubResource("RectangleShape2D_gt1bn")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+shape = SubResource("RectangleShape2D_ulqub")
 
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="end_dash"]
-[connection signal="area_entered" from="HurtArea" to="." method="_on_hurt_area_area_entered"]
+[connection signal="damage" from="HurtComponent" to="." method="_on_hurt_component_damage"]

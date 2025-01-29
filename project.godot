@@ -31,6 +31,15 @@ window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[global_group]
+
+player_attack=""
+enemy=""
+
+[gui]
+
+theme/default_font_antialiasing=0
+
 [input]
 
 ui_click={
@@ -41,5 +50,6 @@ ui_click={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

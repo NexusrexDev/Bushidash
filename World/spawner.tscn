@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2wd4m1p3pckq"]
+
+[ext_resource type="Script" path="res://World/spawner.gd" id="1_e2tuy"]
+[ext_resource type="PackedScene" uid="uid://dqmwwivnsfag2" path="res://Enemies/Follower/base_enemy.tscn" id="2_rca5r"]
+[ext_resource type="PackedScene" uid="uid://d2je0kh5xrf6h" path="res://Enemies/Charger/charger_enemy.tscn" id="4_44sb5"]
+[ext_resource type="PackedScene" uid="uid://bi7ulh02i1l6b" path="res://Enemies/Ranger/ranger_enemy.tscn" id="5_c6uxj"]
+
+[node name="Spawner" type="Node" node_paths=PackedStringArray("_spawn_points", "_wave_timer", "_pattern_timer", "_instantiate_timer")]
+script = ExtResource("1_e2tuy")
+_spawn_points = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3"), NodePath("Marker2D4"), NodePath("Marker2D5"), NodePath("Marker2D6"), NodePath("Marker2D7"), NodePath("Marker2D8"), NodePath("Marker2D9")]
+_enemy_scenes = Array[PackedScene]([ExtResource("2_rca5r"), ExtResource("4_44sb5"), ExtResource("5_c6uxj")])
+_wave_timer = NodePath("WaveTimer")
+_pattern_timer = NodePath("PatternTimer")
+_instantiate_timer = NodePath("InstantiateTimer")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(240, 180)
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(104, 180)
+
+[node name="Marker2D3" type="Marker2D" parent="."]
+position = Vector2(376, 180)
+
+[node name="Marker2D4" type="Marker2D" parent="."]
+position = Vector2(240, 84)
+
+[node name="Marker2D5" type="Marker2D" parent="."]
+position = Vector2(104, 84)
+
+[node name="Marker2D6" type="Marker2D" parent="."]
+position = Vector2(376, 84)
+
+[node name="Marker2D7" type="Marker2D" parent="."]
+position = Vector2(240, 276)
+
+[node name="Marker2D8" type="Marker2D" parent="."]
+position = Vector2(104, 276)
+
+[node name="Marker2D9" type="Marker2D" parent="."]
+position = Vector2(376, 276)
+
+[node name="WaveTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="PatternTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="InstantiateTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[connection signal="timeout" from="WaveTimer" to="." method="_start_wave"]
+[connection signal="timeout" from="PatternTimer" to="." method="_start_pattern"]
+[connection signal="timeout" from="InstantiateTimer" to="." method="_instantiate_enemy"]

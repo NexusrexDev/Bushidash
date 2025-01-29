@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://bi7ulh02i1l6b"]
+
+[ext_resource type="Script" path="res://Enemies/Ranger/ranger_enemy.gd" id="1_n21kq"]
+[ext_resource type="Script" path="res://Components/HurtComponent.gd" id="2_32yo7"]
+[ext_resource type="Texture2D" uid="uid://cs1q1qyv2mrj2" path="res://Enemies/Ranger/RangerBody.png" id="2_a13m8"]
+[ext_resource type="Script" path="res://Components/ShootComponent.gd" id="4_ovfb8"]
+[ext_resource type="PackedScene" uid="uid://co284hq4w1ne1" path="res://Enemies/Ranger/projectile.tscn" id="5_ive43"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8aeo"]
+size = Vector2(32, 32)
+
+[node name="RangerEnemy" type="Area2D" node_paths=PackedStringArray("_sprite", "_shoot_component", "_shoot_timer")]
+script = ExtResource("1_n21kq")
+_sprite = NodePath("Sprite2D")
+_shoot_component = NodePath("ShootComponent")
+_shoot_timer = NodePath("ShootTimer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_a13m8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p8aeo")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="HurtComponent" type="Area2D" parent="."]
+script = ExtResource("2_32yo7")
+_damage_group = &"player_attack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+shape = SubResource("RectangleShape2D_p8aeo")
+
+[node name="ShootComponent" type="Node2D" parent="."]
+script = ExtResource("4_ovfb8")
+_shot_scene = ExtResource("5_ive43")
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="damage" from="HurtComponent" to="." method="_on_hurt_component_damage"]
