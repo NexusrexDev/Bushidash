@@ -39,8 +39,16 @@ func _generate_pattern() -> Array:
 	var available_enemies : Array = _enemy_scenes.slice(0, _current_wave)
 	var available_spawn_points : Array = _spawn_points.duplicate()
 	var pattern := []
+
+	if _current_wave <= 3 and _current_pattern == 1:
+		var first_enemy : PackedScene = available_enemies[_current_wave - 1]
+		var spawn_point : Marker2D = available_spawn_points[randi() % available_spawn_points.size()]
+		pattern.append([first_enemy, spawn_point])
+		_target_enemies = 1
+		return pattern
+
 	var max_randi : int = 5
-	_target_enemies = randi() % max_randi + 1
+	_target_enemies = randi_range(2, max_randi)
 	for i in range(_target_enemies):
 		var enemy_type : PackedScene = available_enemies[randi() % available_enemies.size()]
 		var spawn_point : Marker2D = available_spawn_points[randi() % available_spawn_points.size()]
@@ -62,7 +70,7 @@ func _instantiate_enemy() -> void:
 func _on_enemy_destroyed() -> void:
 	_destroyed_enemies += 1
 	if _destroyed_enemies == _target_enemies:
-		if _current_pattern <= 3:
+		if _current_pattern <= 2:
 			_pattern_timer.start()
 		else:
 			_wave_timer.start()

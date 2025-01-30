@@ -30,6 +30,8 @@ func _on_hurt_component_damage() -> void:
 func _death() -> void:
 	emit_signal(destroyed.get_name())
 	GameManager.enemy_destroyed(_score)
+	GameManager.hitstop(0.1, 0.05)
+	GameManager.screen_shake(1.5)
 
 	var explosion : Node2D = _explosion_particles.instantiate()
 	explosion.position = position

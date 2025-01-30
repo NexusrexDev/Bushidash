@@ -19,8 +19,7 @@ func _ready() -> void:
 	#Spawn anim goes here
 	_charge_timer.start()
 	if _player:
-		if _player.position.x < position.x:
-			_sprite.flip_h = true
+		_sprite.flip_h = (_player.position.x < position.x)
 
 func _physics_process(delta: float) -> void:
 	# move towards the player if the object still exists
@@ -31,14 +30,13 @@ func _physics_process(delta: float) -> void:
 
 func _on_charge_timer_timeout() -> void:
 	_animation_player.play("start_charge")
+	if _player:
+		_sprite.flip_h = (_player.position.x < position.x)
 
 func start_charge() -> void:
 	if _player:
 		_charge_velocity = (_player.position - position).normalized() * _charge_speed
-		if _charge_velocity.x < 0:
-			_sprite.flip_h = true
-		else:
-			_sprite.flip_h = false
+		_sprite.flip_h = (_charge_velocity.x < 0)
 		_is_charging = true
 		_animation_player.play("charge")
 
@@ -47,6 +45,7 @@ func end_charge() -> void:
 	_charge_velocity = Vector2.ZERO
 	_charge_timer.start()
 	_animation_player.play("RESET")
+	GameManager.screen_shake(1.5)
 
 func _on_hurt_component_damage() -> void:
 	_death()
@@ -54,6 +53,8 @@ func _on_hurt_component_damage() -> void:
 func _death() -> void:
 	emit_signal(destroyed.get_name())
 	GameManager.enemy_destroyed(_score)
+	GameManager.hitstop(0.1, 0.05)
+	GameManager.screen_shake(1.5)
 
 	var explosion : Node2D = _explosion_particles.instantiate()
 	explosion.position = position

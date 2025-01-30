@@ -47,6 +47,8 @@ tile_set = SubResource("TileSet_dnvo7")
 
 [node name="Player" parent="." instance=ExtResource("1_p2kjh")]
 position = Vector2(240, 180)
+hp = 3
+focus = 1.0
 
 [node name="Wall" type="StaticBody2D" parent="." groups=["Wall"]]
 collision_layer = 3

@@ -83,6 +83,8 @@ func _on_hurt_component_damage() -> void:
 	if _iframes_timer.is_stopped():
 		hp -= 1
 		GameManager.reset_combo()
+		GameManager.hitstop(0.1, 0.1)
+		GameManager.screen_shake(3)
 		_iframes_timer.start()
 		if hp <= 0:
 			GameManager.restart_game()

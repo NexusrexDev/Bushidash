@@ -12,6 +12,15 @@ var highscore : int = 0
 var combo : int = 0
 var combo_time : float = 1.0 : set = _set_combo_time
 
+var _camera : Camera2D
+var _shake_value : float = 0.0
+var _default_timescale : float = 1.0
+
+func _ready() -> void:
+	_camera = Camera2D.new()
+	_camera.anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
+	add_child(_camera)
+
 func _set_combo_time(value : float) -> void:
 	combo_time = value
 	emit_signal(combo_time_updated.get_name())
@@ -19,6 +28,7 @@ func _set_combo_time(value : float) -> void:
 func restart_game() -> void:
 	score = 0
 	combo = 0
+	Engine.time_scale = 1.0
 	get_tree().call_deferred("reload_current_scene")
 
 func enemy_destroyed(amount : int) -> void:
@@ -43,10 +53,28 @@ func reset_combo() -> void:
 	combo = 0
 	emit_signal(combo_ended.get_name())
 
-func _process(delta : float) -> void:
+func hitstop(timescale: float, duration : float) -> void:
+	Engine.time_scale = timescale
+	await get_tree().create_timer(duration, true, false, true).timeout
+	Engine.time_scale = _default_timescale
+
+func screen_shake(value : float) -> void:
+	_shake_value = value
+
+func _handle_combo_time(delta : float) -> void:
 	if combo > 0:
 		combo_time -= 0.8 * delta
 		if combo_time <= 0:
 			reset_combo()
 			combo_time = 1.0
 			emit_signal(combo_time_updated.get_name())
+
+func _handle_screen_shake(delta : float) -> void:
+	if _shake_value > 0:
+		_shake_value = max(0, _shake_value - delta * 10)
+		_camera.offset.x = randf_range(-_shake_value, _shake_value)
+		_camera.offset.y = randf_range(-_shake_value, _shake_value)
+
+func _process(delta : float) -> void:
+	_handle_combo_time(delta)
+	_handle_screen_shake(delta)

@@ -3,7 +3,7 @@
 [ext_resource type="FontFile" uid="uid://5motaqiu0tx" path="res://UI/Font/Bore Blasters 16.ttf" id="1_ayoy2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgvce"]
-bg_color = Color(0.133333, 0.12549, 0.203922, 0.470588)
+bg_color = Color(0, 0, 0, 0.470588)
 
 [resource]
 Label/fonts/font = ExtResource("1_ayoy2")
