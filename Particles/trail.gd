@@ -1,6 +1,6 @@
 extends Line2D
 
-@export var MAX_POINTS: int = 3
+@export var MAX_POINTS: int = 4
 var point_queue: Array = []
 
 func _process(_delta: float) -> void:

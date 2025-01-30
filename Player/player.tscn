@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bt0ob3h3frjya"]
+[gd_scene load_steps=14 format=3 uid="uid://bt0ob3h3frjya"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_bya84"]
 [ext_resource type="PackedScene" uid="uid://bkikmnl820dgi" path="res://UI/pointer.tscn" id="2_m0lfc"]
 [ext_resource type="Texture2D" uid="uid://dlp4rlpdojk5k" path="res://Player/PlayerBody.png" id="2_p7gu6"]
+[ext_resource type="Texture2D" uid="uid://bvaqup62u4c35" path="res://World/Shadow.png" id="2_txikg"]
 [ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_awalr"]
 [ext_resource type="PackedScene" uid="uid://cmmsbrpej44j4" path="res://Particles/dust_particles.tscn" id="3_h1q21"]
 [ext_resource type="PackedScene" uid="uid://cbivcdy3q0y3" path="res://Particles/trail.tscn" id="5_wxoc8"]
@@ -16,16 +17,59 @@ size = Vector2(48, 48)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ulqub"]
 size = Vector2(16, 16)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_dash_timer", "_iframes_timer", "_attack_area", "_hurt_component", "sprite")]
+[sub_resource type="Animation" id="Animation_iqcad"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hng20"]
+resource_name = "idle"
+length = 1.6
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 1.1), Vector2(1, 1), Vector2(1.1, 0.9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nit6e"]
+_data = {
+"RESET": SubResource("Animation_iqcad"),
+"idle": SubResource("Animation_hng20")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_iframes_timer", "_attack_area", "_hurt_component", "sprite")]
 motion_mode = 1
 script = ExtResource("1_bya84")
 hp = null
 focus = null
-_dash_timer = NodePath("")
 _iframes_timer = NodePath("IFrameTimer")
 _attack_area = NodePath("AttackArea")
 _hurt_component = NodePath("HurtComponent")
 sprite = NodePath("Sprite2D")
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.470588)
+texture = ExtResource("2_txikg")
+offset = Vector2(0, 14)
 
 [node name="Pointer" parent="." instance=ExtResource("2_m0lfc")]
 
@@ -35,7 +79,7 @@ offset = Vector2(0, -4)
 
 [node name="DustParticles" parent="Sprite2D" instance=ExtResource("3_h1q21")]
 z_index = -2
-position = Vector2(-6, 6)
+position = Vector2(0, 6)
 amount = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -58,5 +102,11 @@ _damage_group = &"enemy"
 shape = SubResource("RectangleShape2D_ulqub")
 
 [node name="Trail" parent="." instance=ExtResource("5_wxoc8")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nit6e")
+}
+autoplay = "idle"
 
 [connection signal="damage" from="HurtComponent" to="." method="_on_hurt_component_damage"]

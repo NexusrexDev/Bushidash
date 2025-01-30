@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="Cosmic Ronins"
+config/name="Bushidash"
 run/main_scene="res://World/base.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.svg"
+config/stretch/mode="viewport"
+config/canvas_textures/default_texture_filter=0
 
 [autoload]
 

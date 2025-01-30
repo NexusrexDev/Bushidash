@@ -11,6 +11,8 @@ signal focus_updated(focus: float)
 @export var _hurt_component : HurtComponent
 @export var sprite : Sprite2D
 
+@onready var _animation_player : AnimationPlayer = $AnimationPlayer
+
 var _can_dash : bool = true
 var _is_dashing : bool = false
 var _dash_speed : float = 1000
@@ -55,12 +57,14 @@ func start_dash(direction: Vector2) -> void:
 
 	_attack_area.process_mode = Node.PROCESS_MODE_INHERIT
 	_hurt_component.process_mode = Node.PROCESS_MODE_DISABLED
+	_animation_player.play("RESET")
 
 func end_dash() -> void:
 	_is_dashing = false
 	_target_velocity = Vector2.ZERO
 	_attack_area.process_mode = Node.PROCESS_MODE_DISABLED
 	_hurt_component.process_mode = Node.PROCESS_MODE_INHERIT
+	_animation_player.play("idle")
 
 func _on_cooldown_timer_timeout() -> void:
 	_can_dash = true

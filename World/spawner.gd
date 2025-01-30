@@ -15,7 +15,7 @@ enum EnemyType {
 
 var _current_wave : int = 0
 var _current_pattern : int = 0
-var _spawned_enemies : int = 0
+var _target_enemies : int = 0
 var _destroyed_enemies : int = 0
 
 var _pattern : Array = []
@@ -26,12 +26,12 @@ func _ready() -> void:
 func _start_wave() -> void:
 	_current_wave += 1
 	_current_pattern = 0
-	_spawned_enemies = 0
-	_destroyed_enemies = 0
 	_start_pattern()
 
 func _start_pattern() -> void:
 	_current_pattern += 1
+	_target_enemies = 0
+	_destroyed_enemies = 0
 	_pattern = _generate_pattern()
 	_instantiate_timer.start()
 
@@ -40,8 +40,8 @@ func _generate_pattern() -> Array:
 	var available_spawn_points : Array = _spawn_points.duplicate()
 	var pattern := []
 	var max_randi : int = 5
-	var pattern_length : int = randi() % max_randi + 1
-	for i in range(pattern_length):
+	_target_enemies = randi() % max_randi + 1
+	for i in range(_target_enemies):
 		var enemy_type : PackedScene = available_enemies[randi() % available_enemies.size()]
 		var spawn_point : Marker2D = available_spawn_points[randi() % available_spawn_points.size()]
 		available_spawn_points.erase(spawn_point)
@@ -56,13 +56,12 @@ func _instantiate_enemy() -> void:
 	enemy_instance.position = current_enemy[1].global_position + position_offset
 	enemy_instance.connect("destroyed", Callable(self, "_on_enemy_destroyed"))
 	get_parent().add_child(enemy_instance)
-	_spawned_enemies += 1
 	if _pattern.size() == 0:
 		_instantiate_timer.stop()
 
 func _on_enemy_destroyed() -> void:
 	_destroyed_enemies += 1
-	if _destroyed_enemies == _spawned_enemies:
+	if _destroyed_enemies == _target_enemies:
 		if _current_pattern <= 3:
 			_pattern_timer.start()
 		else:

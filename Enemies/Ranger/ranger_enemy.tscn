@@ -1,13 +1,113 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi7ulh02i1l6b"]
+[gd_scene load_steps=11 format=3 uid="uid://bi7ulh02i1l6b"]
 
 [ext_resource type="Script" path="res://Enemies/Ranger/ranger_enemy.gd" id="1_n21kq"]
 [ext_resource type="Script" path="res://Components/HurtComponent.gd" id="2_32yo7"]
 [ext_resource type="Texture2D" uid="uid://cs1q1qyv2mrj2" path="res://Enemies/Ranger/RangerBody.png" id="2_a13m8"]
+[ext_resource type="Texture2D" uid="uid://bvaqup62u4c35" path="res://World/Shadow.png" id="2_bpl6o"]
 [ext_resource type="Script" path="res://Components/ShootComponent.gd" id="4_ovfb8"]
 [ext_resource type="PackedScene" uid="uid://co284hq4w1ne1" path="res://Enemies/Ranger/projectile.tscn" id="5_ive43"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8aeo"]
 size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_jmah1"]
+resource_name = "shoot"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 0, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 0, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0698132, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 0, 0),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_o37pk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oxaei"]
+_data = {
+"RESET": SubResource("Animation_o37pk"),
+"shoot": SubResource("Animation_jmah1")
+}
 
 [node name="RangerEnemy" type="Area2D" node_paths=PackedStringArray("_sprite", "_shoot_component", "_shoot_timer")]
 script = ExtResource("1_n21kq")
@@ -15,14 +115,20 @@ _sprite = NodePath("Sprite2D")
 _shoot_component = NodePath("ShootComponent")
 _shoot_timer = NodePath("ShootTimer")
 
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.470588)
+z_index = -3
+texture = ExtResource("2_bpl6o")
+offset = Vector2(0, 14)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_a13m8")
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p8aeo")
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 1.5
 one_shot = true
 
 [node name="HurtComponent" type="Area2D" parent="."]
@@ -35,6 +141,11 @@ shape = SubResource("RectangleShape2D_p8aeo")
 [node name="ShootComponent" type="Node2D" parent="."]
 script = ExtResource("4_ovfb8")
 _shot_scene = ExtResource("5_ive43")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oxaei")
+}
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="damage" from="HurtComponent" to="." method="_on_hurt_component_damage"]

@@ -14,31 +14,31 @@ _pattern_timer = NodePath("PatternTimer")
 _instantiate_timer = NodePath("InstantiateTimer")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(240, 180)
+position = Vector2(240, 176)
 
 [node name="Marker2D2" type="Marker2D" parent="."]
-position = Vector2(104, 180)
+position = Vector2(104, 176)
 
 [node name="Marker2D3" type="Marker2D" parent="."]
-position = Vector2(376, 180)
+position = Vector2(376, 176)
 
 [node name="Marker2D4" type="Marker2D" parent="."]
-position = Vector2(240, 84)
+position = Vector2(240, 80)
 
 [node name="Marker2D5" type="Marker2D" parent="."]
-position = Vector2(104, 84)
+position = Vector2(104, 80)
 
 [node name="Marker2D6" type="Marker2D" parent="."]
-position = Vector2(376, 84)
+position = Vector2(376, 80)
 
 [node name="Marker2D7" type="Marker2D" parent="."]
-position = Vector2(240, 276)
+position = Vector2(240, 272)
 
 [node name="Marker2D8" type="Marker2D" parent="."]
-position = Vector2(104, 276)
+position = Vector2(104, 272)
 
 [node name="Marker2D9" type="Marker2D" parent="."]
-position = Vector2(376, 276)
+position = Vector2(376, 272)
 
 [node name="WaveTimer" type="Timer" parent="."]
 one_shot = true
