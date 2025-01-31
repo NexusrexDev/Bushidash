@@ -41,10 +41,11 @@ position = Vector2(104, 272)
 position = Vector2(376, 272)
 
 [node name="WaveTimer" type="Timer" parent="."]
+wait_time = 0.3
 one_shot = true
 
 [node name="PatternTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.25
 one_shot = true
 
 [node name="InstantiateTimer" type="Timer" parent="."]

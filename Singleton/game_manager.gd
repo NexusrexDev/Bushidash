@@ -16,6 +16,8 @@ var _camera : Camera2D
 var _shake_value : float = 0.0
 var _default_timescale : float = 1.0
 
+var current_wave : int = 0
+
 func _ready() -> void:
 	_camera = Camera2D.new()
 	_camera.anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
@@ -29,6 +31,7 @@ func _set_combo_time(value : float) -> void:
 func restart_game() -> void:
 	score = 0
 	combo = 0
+	current_wave = 0
 	Engine.time_scale = 1.0
 	get_tree().paused = false
 	get_tree().call_deferred("reload_current_scene")

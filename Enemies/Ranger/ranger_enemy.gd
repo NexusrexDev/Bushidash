@@ -6,6 +6,7 @@ signal destroyed
 @export var _sprite: Sprite2D
 @export var _shoot_component: ShootComponent
 @export var _shoot_timer: Timer
+@export var _shoot_time : float = 1
 @export var _score: int = 30
 
 @export_category("SFX")
@@ -22,6 +23,7 @@ func _ready() -> void:
 	_animation_player.play("intro")
 
 func _start_action() -> void:
+	_shoot_time = 1 - clamp(((GameManager.current_wave-3) * 0.1), 0, 0.4)
 	_on_shoot_timer_timeout()
 
 func _process(_delta: float) -> void:
@@ -40,7 +42,7 @@ func shoot() -> void:
 	if _player:
 		var direction : Vector2 = (_player.position - position).normalized()
 		_shoot_component.shoot_at(direction)
-		_shoot_timer.start()
+		_shoot_timer.start(_shoot_time)
 
 		SoundManager.play_sfx(_shoot_sfx)
 

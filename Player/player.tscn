@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bt0ob3h3frjya"]
+[gd_scene load_steps=18 format=3 uid="uid://bt0ob3h3frjya"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_bya84"]
 [ext_resource type="AudioStream" uid="uid://oougyspv3pbv" path="res://Player/hit.wav" id="2_guquo"]
@@ -9,6 +9,12 @@
 [ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_awalr"]
 [ext_resource type="PackedScene" uid="uid://cmmsbrpej44j4" path="res://Particles/dust_particles.tscn" id="3_h1q21"]
 [ext_resource type="PackedScene" uid="uid://cbivcdy3q0y3" path="res://Particles/trail.tscn" id="5_wxoc8"]
+[ext_resource type="Shader" path="res://Player/flash.gdshader" id="6_rdh1k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gmxrr"]
+shader = ExtResource("6_rdh1k")
+shader_parameter/active = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgeqb"]
 size = Vector2(32, 32)
@@ -76,6 +82,7 @@ offset = Vector2(0, 14)
 [node name="Pointer" parent="." instance=ExtResource("2_m0lfc")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_gmxrr")
 texture = ExtResource("2_p7gu6")
 offset = Vector2(0, -4)
 
@@ -111,4 +118,5 @@ libraries = {
 }
 autoplay = "idle"
 
+[connection signal="timeout" from="IFrameTimer" to="." method="_on_iframe_timer_timeout"]
 [connection signal="damage" from="HurtComponent" to="." method="_on_hurt_component_damage"]

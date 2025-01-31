@@ -5,7 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://ce2iviamkukkc" path="res://Particles/Circle.png" id="2_mo6m0"]
 
 [sub_resource type="Curve" id="Curve_wnoda"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.545802, 1), 0.0, 0.0, 0, 0]
+max_value = 1.5
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.546, 1.2), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_ovuce"]
@@ -23,12 +24,12 @@ _emitter_array = [NodePath("DecayParticle"), NodePath("BoomParticle")]
 [node name="BoomParticle" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 1
+lifetime = 0.7
 one_shot = true
 speed_scale = 1.5
+explosiveness = 0.49
 texture = ExtResource("2_mo6m0")
 gravity = Vector2(0, 0)
-scale_amount_min = 0.25
-scale_amount_max = 0.25
 scale_amount_curve = SubResource("Curve_wnoda")
 color_ramp = SubResource("Gradient_ovuce")
 
@@ -42,7 +43,7 @@ texture = ExtResource("1_xh15d")
 direction = Vector2(0, -1)
 spread = 127.7
 gravity = Vector2(0, 0)
-initial_velocity_min = 94.59
-initial_velocity_max = 94.59
+initial_velocity_min = 60.0
+initial_velocity_max = 70.0
 scale_amount_min = 0.5
 scale_amount_curve = SubResource("Curve_aeoal")

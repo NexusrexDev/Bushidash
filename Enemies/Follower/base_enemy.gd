@@ -5,6 +5,7 @@ signal destroyed
 @export var _sprite : Sprite2D
 @export var _score : int = 10
 @onready var _animation_player : AnimationPlayer = $AnimationPlayer
+@export var _speed : float = 60
 var _player : Node
 var _started : bool = false
 var _explosion_particles : PackedScene = preload("res://Particles/explosion_particle.tscn")
@@ -19,12 +20,14 @@ func _ready() -> void:
 
 func _start_action() -> void:
 	_started = true
+	_speed = 60 + clamp(((GameManager.current_wave-3)* 20), 0, 60)
+	_animation_player.speed_scale = 1.2 + clamp(((GameManager.current_wave-3) * 0.2), 0, 1)
 	_animation_player.play("waddle")
 
 func _physics_process(delta: float) -> void:
 	if _started and _player:
 		var direction : Vector2 = (_player.position - position).normalized()
-		var velocity : Vector2 = direction * 60
+		var velocity : Vector2 = direction * _speed
 		if direction.x < 0:
 			_sprite.flip_h = true
 		else:

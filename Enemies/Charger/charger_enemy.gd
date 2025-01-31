@@ -6,6 +6,7 @@ signal destroyed
 @export var _sprite : Sprite2D
 @export var _charge_timer : Timer
 @export var _charge_speed : float = 350
+@export var _charge_timer_duration : float = 0.5
 @export var _score : int = 20
 
 @export_category("SFX")
@@ -29,6 +30,9 @@ func _ready() -> void:
 	_animation_player.play("intro")
 
 func _start_action() -> void:
+	_charge_timer_duration = 0.5 - clamp(((GameManager.current_wave-3) * 0.05), 0, 0.2)
+	_charge_speed = 350 + clamp(((GameManager.current_wave-3) * 20), 0, 360)
+	_animation_player.speed_scale = 1.2 + clamp(((GameManager.current_wave-3) * 0.2), 0, 1)
 	_on_charge_timer_timeout()
 
 func _physics_process(delta: float) -> void:
@@ -55,7 +59,7 @@ func start_charge() -> void:
 func end_charge() -> void:
 	_is_charging = false
 	_charge_velocity = Vector2.ZERO
-	_charge_timer.start()
+	_charge_timer.start(_charge_timer_duration)
 	_animation_player.play("RESET")
 	GameManager.screen_shake(1.5)
 	SoundManager.play_sfx(_wall_hit_sfx)

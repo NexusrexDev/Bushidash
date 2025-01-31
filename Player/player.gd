@@ -24,6 +24,7 @@ var _target_velocity : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	_attack_area.process_mode = Node.PROCESS_MODE_DISABLED
+	(sprite.material as ShaderMaterial).set_shader_parameter("active", false)
 
 func _set_hp(value: int) -> void:
 	hp = value
@@ -74,6 +75,9 @@ func end_dash() -> void:
 func _on_cooldown_timer_timeout() -> void:
 	_can_dash = true
 
+func _on_iframe_timer_timeout() -> void:
+	(sprite.material as ShaderMaterial).set_shader_parameter("active", false)
+
 func _physics_process(delta: float) -> void:
 	if _is_dashing:
 		var speed : float = _target_velocity.length()
@@ -89,6 +93,8 @@ func _on_hurt_component_damage() -> void:
 		return
 
 	SoundManager.play_sfx(_hit_sfx)
+	(sprite.material as ShaderMaterial).set_shader_parameter("active", true)
+
 	if hp > 1:
 		hp -= 1
 		GameManager.reset_combo()
