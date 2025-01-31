@@ -20,15 +20,17 @@ func _ready() -> void:
 	_camera = Camera2D.new()
 	_camera.anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
 	add_child(_camera)
+	process_mode = PROCESS_MODE_ALWAYS
 
 func _set_combo_time(value : float) -> void:
 	combo_time = value
-	emit_signal(combo_time_updated.get_name())
+	emit_signal(combo_time_updated.get_name(), combo_time)
 
 func restart_game() -> void:
 	score = 0
 	combo = 0
 	Engine.time_scale = 1.0
+	get_tree().paused = false
 	get_tree().call_deferred("reload_current_scene")
 
 func enemy_destroyed(amount : int) -> void:
@@ -47,10 +49,11 @@ func increase_combo() -> void:
 	if combo == 1:
 		emit_signal(combo_started.get_name())
 	else:
-		emit_signal(combo_updated.get_name())
+		emit_signal(combo_updated.get_name(), combo)
 
 func reset_combo() -> void:
 	combo = 0
+	combo_time = 1.0
 	emit_signal(combo_ended.get_name())
 
 func hitstop(timescale: float, duration : float) -> void:
@@ -67,7 +70,6 @@ func _handle_combo_time(delta : float) -> void:
 		if combo_time <= 0:
 			reset_combo()
 			combo_time = 1.0
-			emit_signal(combo_time_updated.get_name())
 
 func _handle_screen_shake(delta : float) -> void:
 	if _shake_value > 0:

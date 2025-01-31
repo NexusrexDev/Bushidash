@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dqmwwivnsfag2"]
+[gd_scene load_steps=12 format=3 uid="uid://dqmwwivnsfag2"]
 
 [ext_resource type="Script" path="res://Enemies/Follower/base_enemy.gd" id="1_cq31h"]
+[ext_resource type="AudioStream" uid="uid://vm0bwmccufyh" path="res://Enemies/enemy_kill.wav" id="2_1ekkl"]
 [ext_resource type="Texture2D" uid="uid://bvaqup62u4c35" path="res://World/Shadow.png" id="2_mq4ea"]
 [ext_resource type="Texture2D" uid="uid://cnds3cy6d0ejl" path="res://Enemies/Follower/FollowerBody.png" id="2_wf4yi"]
 [ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_5nbbq"]
@@ -46,6 +47,109 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/DustParticles:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:process_mode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimationPlayer:process_mode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8qhvp"]
+resource_name = "intro"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(2, -2, 1),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(1.25, 0.75), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/DustParticles:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:process_mode")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer:process_mode")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_start_action"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_vduaj"]
@@ -93,12 +197,14 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2okjg"]
 _data = {
 "RESET": SubResource("Animation_ejsrn"),
+"intro": SubResource("Animation_8qhvp"),
 "waddle": SubResource("Animation_vduaj")
 }
 
 [node name="BaseEnemy" type="Area2D" node_paths=PackedStringArray("_sprite") groups=["enemy"]]
 script = ExtResource("1_cq31h")
 _sprite = NodePath("Sprite2D")
+_death_sfx = ExtResource("2_1ekkl")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.470588)
@@ -110,8 +216,9 @@ offset = Vector2(0, 14)
 texture = ExtResource("2_wf4yi")
 
 [node name="DustParticles" parent="Sprite2D" instance=ExtResource("3_ijvep")]
+visible = false
 z_index = -2
-position = Vector2(0, 8)
+position = Vector2(0, 6)
 amount = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,14 +1,135 @@
-[gd_scene load_steps=11 format=3 uid="uid://bi7ulh02i1l6b"]
+[gd_scene load_steps=15 format=3 uid="uid://bi7ulh02i1l6b"]
 
 [ext_resource type="Script" path="res://Enemies/Ranger/ranger_enemy.gd" id="1_n21kq"]
+[ext_resource type="AudioStream" uid="uid://oeccjir4as0i" path="res://Enemies/Ranger/charge_projectile.wav" id="2_6sbb1"]
 [ext_resource type="Script" path="res://Components/HurtComponent.gd" id="2_32yo7"]
 [ext_resource type="Texture2D" uid="uid://cs1q1qyv2mrj2" path="res://Enemies/Ranger/RangerBody.png" id="2_a13m8"]
 [ext_resource type="Texture2D" uid="uid://bvaqup62u4c35" path="res://World/Shadow.png" id="2_bpl6o"]
+[ext_resource type="AudioStream" uid="uid://dmwdjvixbd02u" path="res://Enemies/Ranger/shoot.wav" id="3_elvse"]
+[ext_resource type="AudioStream" uid="uid://vm0bwmccufyh" path="res://Enemies/enemy_kill.wav" id="4_hjifx"]
 [ext_resource type="Script" path="res://Components/ShootComponent.gd" id="4_ovfb8"]
 [ext_resource type="PackedScene" uid="uid://co284hq4w1ne1" path="res://Enemies/Ranger/projectile.tscn" id="5_ive43"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8aeo"]
 size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_o37pk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:process_mode")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimationPlayer:process_mode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_srj30"]
+resource_name = "intro"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.8),
+"transitions": PackedFloat32Array(2, -2, 1),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(1.25, 0.75), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:process_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer:process_mode")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 0]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_start_action"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_jmah1"]
 resource_name = "shoot"
@@ -64,48 +185,10 @@ tracks/3/keys = {
 "values": [0, 1, 0]
 }
 
-[sub_resource type="Animation" id="Animation_o37pk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oxaei"]
 _data = {
 "RESET": SubResource("Animation_o37pk"),
+"intro": SubResource("Animation_srj30"),
 "shoot": SubResource("Animation_jmah1")
 }
 
@@ -114,6 +197,9 @@ script = ExtResource("1_n21kq")
 _sprite = NodePath("Sprite2D")
 _shoot_component = NodePath("ShootComponent")
 _shoot_timer = NodePath("ShootTimer")
+_charge_sfx = ExtResource("2_6sbb1")
+_shoot_sfx = ExtResource("3_elvse")
+_death_sfx = ExtResource("4_hjifx")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.470588)

@@ -20,7 +20,7 @@ var _destroyed_enemies : int = 0
 
 var _pattern : Array = []
 
-func _ready() -> void:
+func start_game() -> void:
 	_wave_timer.start()
 
 func _start_wave() -> void:

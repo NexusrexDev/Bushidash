@@ -13,6 +13,10 @@ signal focus_updated(focus: float)
 
 @onready var _animation_player : AnimationPlayer = $AnimationPlayer
 
+@export_category("SFX")
+@export var _hit_sfx : AudioStream
+@export var _dash_sfx : AudioStream
+
 var _can_dash : bool = true
 var _is_dashing : bool = false
 var _dash_speed : float = 1000
@@ -58,6 +62,7 @@ func start_dash(direction: Vector2) -> void:
 	_attack_area.process_mode = Node.PROCESS_MODE_INHERIT
 	_hurt_component.process_mode = Node.PROCESS_MODE_DISABLED
 	_animation_player.play("RESET")
+	SoundManager.play_sfx(_dash_sfx)
 
 func end_dash() -> void:
 	_is_dashing = false
@@ -80,11 +85,15 @@ func _physics_process(delta: float) -> void:
 			end_dash()
 
 func _on_hurt_component_damage() -> void:
-	if _iframes_timer.is_stopped():
+	if not _iframes_timer.is_stopped():
+		return
+
+	SoundManager.play_sfx(_hit_sfx)
+	if hp > 1:
 		hp -= 1
 		GameManager.reset_combo()
 		GameManager.hitstop(0.1, 0.1)
 		GameManager.screen_shake(3)
 		_iframes_timer.start()
-		if hp <= 0:
-			GameManager.restart_game()
+	else:
+		get_tree().paused = true

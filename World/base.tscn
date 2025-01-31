@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://ck85fc4pp3m7s"]
+[gd_scene load_steps=11 format=4 uid="uid://ck85fc4pp3m7s"]
 
 [ext_resource type="Texture2D" uid="uid://12cfoh4usgor" path="res://World/Tileset.png" id="1_7ufwv"]
 [ext_resource type="PackedScene" uid="uid://bt0ob3h3frjya" path="res://Player/player.tscn" id="1_p2kjh"]
 [ext_resource type="PackedScene" uid="uid://d2wd4m1p3pckq" path="res://World/spawner.tscn" id="2_vck6x"]
 [ext_resource type="PackedScene" uid="uid://bxnj2pohppnwy" path="res://UI/game_ui.tscn" id="3_4qyxa"]
+[ext_resource type="PackedScene" uid="uid://itpa4i882d5k" path="res://UI/main_menu.tscn" id="4_l8at7"]
+[ext_resource type="PackedScene" uid="uid://c10qdmdegldlj" path="res://UI/game_over.tscn" id="5_fpxxx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v6vgu"]
 texture = ExtResource("1_7ufwv")
@@ -47,8 +49,6 @@ tile_set = SubResource("TileSet_dnvo7")
 
 [node name="Player" parent="." instance=ExtResource("1_p2kjh")]
 position = Vector2(240, 180)
-hp = 3
-focus = 1.0
 
 [node name="Wall" type="StaticBody2D" parent="." groups=["Wall"]]
 collision_layer = 3
@@ -73,7 +73,14 @@ shape = SubResource("RectangleShape2D_8hgkj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("4_l8at7")]
+
 [node name="GameUI" parent="CanvasLayer" instance=ExtResource("3_4qyxa")]
+visible = false
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource("5_fpxxx")]
 
 [connection signal="focus_updated" from="Player" to="CanvasLayer/GameUI" method="_on_focus_updated"]
 [connection signal="hp_updated" from="Player" to="CanvasLayer/GameUI" method="_on_hp_updated"]
+[connection signal="start_game" from="CanvasLayer/MainMenu" to="Spawner" method="start_game"]
+[connection signal="start_game" from="CanvasLayer/MainMenu" to="CanvasLayer/GameUI" method="show_ui"]

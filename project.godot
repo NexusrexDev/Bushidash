@@ -20,6 +20,7 @@ config/canvas_textures/default_texture_filter=0
 [autoload]
 
 GameManager="*res://Singleton/game_manager.gd"
+SoundManager="*res://Singleton/sound_manager.gd"
 
 [debug]
 
