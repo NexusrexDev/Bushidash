@@ -92,7 +92,6 @@ func _on_hurt_component_damage() -> void:
 	if not _iframes_timer.is_stopped():
 		return
 
-	SoundManager.play_sfx(_hit_sfx)
 	(sprite.material as ShaderMaterial).set_shader_parameter("active", true)
 
 	if hp > 1:
@@ -101,5 +100,9 @@ func _on_hurt_component_damage() -> void:
 		GameManager.hitstop(0.1, 0.1)
 		GameManager.screen_shake(3)
 		_iframes_timer.start()
+		SoundManager.play_sfx(_hit_sfx)
 	else:
+		SoundManager.stop_music()
+		SoundManager.stop_all_sfx()
+		SoundManager.play_sfx(_hit_sfx)
 		get_tree().paused = true

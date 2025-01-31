@@ -2,6 +2,8 @@ extends Node
 
 var _sfx_players : Array[AudioStreamPlayer] = []
 var _music_player : AudioStreamPlayer
+const GAME_MUSIC : AudioStream = preload("res://Music/Main-Track.ogg")
+const NEX_JINGLE : AudioStream = preload("res://Music/nexJingle.wav")
 
 func _ready() -> void:
 	for i : int in range(16):
@@ -25,8 +27,13 @@ func play_sfx(sound : AudioStream) -> void:
 			_sfx_players.append(player)
 			return
 
-func play_music(music : AudioStream) -> void:
-	_music_player.stream = music
+func stop_all_sfx() -> void:
+	for player : AudioStreamPlayer in _sfx_players:
+		player.stop()
+
+func play_music(music_file: AudioStream) -> void:
+	_music_player.stream = music_file
+	_music_player.seek(0)
 	_music_player.play()
 
 func stop_music() -> void:

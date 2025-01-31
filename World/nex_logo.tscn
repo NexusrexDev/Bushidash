@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctfv4l1ipbkwv"]
+
+[ext_resource type="Texture2D" uid="uid://byhboatjgfxbw" path="res://UI/Pixel.png" id="1_1hine"]
+[ext_resource type="Script" path="res://World/nex_logo.gd" id="1_xs57r"]
+[ext_resource type="Texture2D" uid="uid://cwb2d7t0tmrus" path="res://UI/nexlogo.png" id="2_oy3s2"]
+
+[sub_resource type="Animation" id="Animation_4fkmw"]
+resource_name = "nex_logo"
+length = 2.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NexLogo:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 1.7, 2.2, 2.5),
+"transitions": PackedFloat32Array(1, 0.25, 1, 1, 2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1e-05, 1e-05), Vector2(3, 3), Vector2(2, 2), Vector2(2, 2), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play_jingle"
+}, {
+"args": [],
+"method": &"switch_scene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_di7wp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NexLogo:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ei4y"]
+_data = {
+"RESET": SubResource("Animation_di7wp"),
+"nex_logo": SubResource("Animation_4fkmw")
+}
+
+[node name="NexLogo" type="Node2D"]
+script = ExtResource("1_xs57r")
+
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0.133333, 0.12549, 0.203922, 1)
+position = Vector2(240, 180)
+scale = Vector2(60, 45)
+texture = ExtResource("1_1hine")
+
+[node name="NexLogo" type="Sprite2D" parent="."]
+position = Vector2(240, 180)
+texture = ExtResource("2_oy3s2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3ei4y")
+}
