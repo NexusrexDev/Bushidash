@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Bushidash"
-run/main_scene="res://World/base.tscn"
+run/main_scene="res://World/nex_logo.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.svg"
 config/stretch/mode="viewport"
@@ -28,10 +28,11 @@ gdscript/warnings/untyped_declaration=2
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=360
+window/size/viewport_width=960
+window/size/viewport_height=720
 window/size/resizable=false
 window/stretch/mode="viewport"
+window/stretch/scale=2.0
 window/stretch/scale_mode="integer"
 
 [global_group]
