@@ -13,9 +13,15 @@ config_version=5
 config/name="Bushidash"
 run/main_scene="res://World/nex_logo.tscn"
 config/features=PackedStringArray("4.3")
+boot_splash/bg_color=Color(0.133333, 0.12549, 0.203922, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 config/stretch/mode="viewport"
 config/canvas_textures/default_texture_filter=0
+
+[audio]
+
+general/default_playback_type.web=0
 
 [autoload]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bt0ob3h3frjya"]
+[gd_scene load_steps=19 format=3 uid="uid://bt0ob3h3frjya"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_bya84"]
 [ext_resource type="AudioStream" uid="uid://oougyspv3pbv" path="res://Player/hit.wav" id="2_guquo"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://dt5vtj7bflupt" path="res://Player/dash.wav" id="3_2ag5u"]
 [ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_awalr"]
 [ext_resource type="PackedScene" uid="uid://cmmsbrpej44j4" path="res://Particles/dust_particles.tscn" id="3_h1q21"]
+[ext_resource type="AudioStream" uid="uid://c0k1j6185talk" path="res://Player/focus_full.wav" id="4_dj3jf"]
 [ext_resource type="PackedScene" uid="uid://cbivcdy3q0y3" path="res://Particles/trail.tscn" id="5_wxoc8"]
 [ext_resource type="Shader" path="res://Player/flash.gdshader" id="6_rdh1k"]
 
@@ -73,6 +74,7 @@ _hurt_component = NodePath("HurtComponent")
 sprite = NodePath("Sprite2D")
 _hit_sfx = ExtResource("2_guquo")
 _dash_sfx = ExtResource("3_2ag5u")
+_focus_full_sfx = ExtResource("4_dj3jf")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.470588)

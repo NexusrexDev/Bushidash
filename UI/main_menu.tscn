@@ -102,14 +102,15 @@ size_flags_vertical = 3
 [node name="Label2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_5nwhw")
-text = "Click anywhere to start"
+text = "Use your mouse to aim
+click any key to start"
 horizontal_alignment = 1
 uppercase = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.35
 
 [node name="ColorBG" type="TextureRect" parent="."]
 modulate = Color(0.133333, 0.12549, 0.203922, 1)

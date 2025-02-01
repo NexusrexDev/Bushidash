@@ -61,7 +61,7 @@ func end_charge() -> void:
 	_charge_velocity = Vector2.ZERO
 	_charge_timer.start(_charge_timer_duration)
 	_animation_player.play("RESET")
-	GameManager.screen_shake(1.5)
+	GameManager.screen_shake(2)
 	SoundManager.play_sfx(_wall_hit_sfx)
 
 func _on_hurt_component_damage() -> void:
@@ -71,7 +71,7 @@ func _death() -> void:
 	emit_signal(destroyed.get_name())
 	GameManager.enemy_destroyed(_score)
 	GameManager.hitstop(0.1, 0.05)
-	GameManager.screen_shake(1.5)
+	GameManager.screen_shake(2.5)
 
 	var explosion : Node2D = _explosion_particles.instantiate()
 	explosion.position = position

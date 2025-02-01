@@ -16,6 +16,7 @@ signal focus_updated(focus: float)
 @export_category("SFX")
 @export var _hit_sfx : AudioStream
 @export var _dash_sfx : AudioStream
+@export var _focus_full_sfx : AudioStream
 
 var _can_dash : bool = true
 var _is_dashing : bool = false
@@ -39,14 +40,19 @@ func _process(delta: float) -> void:
 		focus += (1.5 + (GameManager.combo * 0.5)) * delta
 		if is_equal_approx(focus, 1):
 			focus = 1
+			SoundManager.play_sfx(_focus_full_sfx)
 			_can_dash = true
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_click") and _can_dash:
-		var mouse_event: InputEventMouse = event
-		var direction : Vector2 = (mouse_event.position - position).normalized()
+	if event.is_pressed():
+		if _can_dash:
+			var mouse_position : Vector2 = get_global_mouse_position()
+			var direction : Vector2 = (mouse_position - position).normalized()
 
-		start_dash(direction)
+			start_dash(direction)
+		else:
+			if GameManager.combo > 0:
+				GameManager.reset_combo()
 
 func start_dash(direction: Vector2) -> void:
 	if direction.x < 0:
@@ -98,7 +104,7 @@ func _on_hurt_component_damage() -> void:
 		hp -= 1
 		GameManager.reset_combo()
 		GameManager.hitstop(0.1, 0.1)
-		GameManager.screen_shake(3)
+		GameManager.screen_shake(4)
 		_iframes_timer.start()
 		SoundManager.play_sfx(_hit_sfx)
 	else:

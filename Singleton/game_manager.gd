@@ -6,6 +6,8 @@ signal combo_updated(combo : int)
 signal combo_time_updated(time: float)
 signal score_updated(score : int, highscore : int)
 
+const COMBO_END_SFX : AudioStream = preload("res://UI/combo_ended.wav")
+
 var score : int = 0
 var highscore : int = 0
 
@@ -57,6 +59,8 @@ func increase_combo() -> void:
 func reset_combo() -> void:
 	combo = 0
 	combo_time = 1.0
+	if not get_tree().paused:
+		SoundManager.play_sfx(COMBO_END_SFX)
 	emit_signal(combo_ended.get_name())
 
 func hitstop(timescale: float, duration : float) -> void:
