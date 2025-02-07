@@ -103,7 +103,7 @@ func _on_hurt_component_damage() -> void:
 	if hp > 1:
 		hp -= 1
 		GameManager.reset_combo()
-		GameManager.hitstop(0.1, 0.1)
+		GameManager.hitstop(0.1, 0.25)
 		GameManager.screen_shake(4)
 		_iframes_timer.start()
 		SoundManager.play_sfx(_hit_sfx)
