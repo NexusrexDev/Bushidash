@@ -2,7 +2,7 @@
 Bushidash is a simple arcade-y game where dashing is the only way to move and attack. Chain dashes and **rack up combos** to get the highest score possible! **But be careful, mistimed dashes break your combo!**
 
 <p align="center">
-    ![Gameplay Sample](https://raw.githubusercontent.com/NexusrexDev/Bushidash/main/gameplaysample.webp)
+  <img width=50% src="/gameplaysample.webp" alt="Gameplay sample"/>
 </p>
 
 This is a short attempt to force myself to focus on a single mechanic, and while initially it was for a local gamedev challenge for a day, I expanded it a bit more (Four days: 28Jan-1Feb) to make it more presentable.
