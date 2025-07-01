@@ -44,7 +44,8 @@ func _process(delta: float) -> void:
 			_can_dash = true
 
 func _input(event: InputEvent) -> void:
-	if event.is_pressed():
+	var mouse_condition: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
+	if mouse_condition:
 		if _can_dash:
 			var mouse_position : Vector2 = get_global_mouse_position()
 			var direction : Vector2 = (mouse_position - position).normalized()

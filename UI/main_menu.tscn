@@ -103,7 +103,7 @@ size_flags_vertical = 3
 layout_mode = 2
 theme = ExtResource("2_5nwhw")
 text = "Use your mouse to aim
-click any key to start"
+tap anywhere to start"
 horizontal_alignment = 1
 uppercase = true
 
