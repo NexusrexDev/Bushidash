@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://bi7ulh02i1l6b"]
 
-[ext_resource type="Script" path="res://Enemies/Ranger/ranger_enemy.gd" id="1_n21kq"]
+[ext_resource type="Script" uid="uid://boqlx6miv4jko" path="res://Enemies/Ranger/ranger_enemy.gd" id="1_n21kq"]
 [ext_resource type="AudioStream" uid="uid://oeccjir4as0i" path="res://Enemies/Ranger/charge_projectile.wav" id="2_6sbb1"]
-[ext_resource type="Script" path="res://Components/HurtComponent.gd" id="2_32yo7"]
+[ext_resource type="Script" uid="uid://co6cxpjs3vt3m" path="res://Components/HurtComponent.gd" id="2_32yo7"]
 [ext_resource type="Texture2D" uid="uid://cs1q1qyv2mrj2" path="res://Enemies/Ranger/RangerBody.png" id="2_a13m8"]
 [ext_resource type="Texture2D" uid="uid://bvaqup62u4c35" path="res://World/Shadow.png" id="2_bpl6o"]
 [ext_resource type="AudioStream" uid="uid://dmwdjvixbd02u" path="res://Enemies/Ranger/shoot.wav" id="3_elvse"]
 [ext_resource type="AudioStream" uid="uid://vm0bwmccufyh" path="res://Enemies/enemy_kill.wav" id="4_hjifx"]
-[ext_resource type="Script" path="res://Components/ShootComponent.gd" id="4_ovfb8"]
+[ext_resource type="Script" uid="uid://2o3whixyg1wv" path="res://Components/ShootComponent.gd" id="4_ovfb8"]
 [ext_resource type="PackedScene" uid="uid://co284hq4w1ne1" path="res://Enemies/Ranger/projectile.tscn" id="5_ive43"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8aeo"]
@@ -187,9 +187,9 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oxaei"]
 _data = {
-"RESET": SubResource("Animation_o37pk"),
-"intro": SubResource("Animation_srj30"),
-"shoot": SubResource("Animation_jmah1")
+&"RESET": SubResource("Animation_o37pk"),
+&"intro": SubResource("Animation_srj30"),
+&"shoot": SubResource("Animation_jmah1")
 }
 
 [node name="RangerEnemy" type="Area2D" node_paths=PackedStringArray("_sprite", "_shoot_component", "_shoot_timer")]

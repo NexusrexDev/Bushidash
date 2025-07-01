@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://d2je0kh5xrf6h"]
 
-[ext_resource type="Script" path="res://Enemies/Charger/charger_enemy.gd" id="1_bi4an"]
+[ext_resource type="Script" uid="uid://dwemkytqt3ao7" path="res://Enemies/Charger/charger_enemy.gd" id="1_bi4an"]
 [ext_resource type="AudioStream" uid="uid://dt600qh7rbniw" path="res://Enemies/Charger/charge_run.wav" id="2_0opif"]
 [ext_resource type="Texture2D" uid="uid://bvaqup62u4c35" path="res://World/Shadow.png" id="2_68nb8"]
-[ext_resource type="Script" path="res://Components/HurtComponent.gd" id="2_ei4uy"]
+[ext_resource type="Script" uid="uid://co6cxpjs3vt3m" path="res://Components/HurtComponent.gd" id="2_ei4uy"]
 [ext_resource type="Texture2D" uid="uid://ccs1oqwnk7g14" path="res://Enemies/Charger/ChargerBody.png" id="2_kb18v"]
 [ext_resource type="AudioStream" uid="uid://o823twgqnt5r" path="res://Enemies/Charger/run.wav" id="3_8ohp4"]
 [ext_resource type="PackedScene" uid="uid://cmmsbrpej44j4" path="res://Particles/dust_particles.tscn" id="3_xkpnj"]
@@ -268,10 +268,10 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uy005"]
 _data = {
-"RESET": SubResource("Animation_rwnvy"),
-"charge": SubResource("Animation_bmk3x"),
-"intro": SubResource("Animation_e46pb"),
-"start_charge": SubResource("Animation_pxhn1")
+&"RESET": SubResource("Animation_rwnvy"),
+&"charge": SubResource("Animation_bmk3x"),
+&"intro": SubResource("Animation_e46pb"),
+&"start_charge": SubResource("Animation_pxhn1")
 }
 
 [node name="ChargerEnemy" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_charge_timer")]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2wd4m1p3pckq"]
 
-[ext_resource type="Script" path="res://World/spawner.gd" id="1_e2tuy"]
+[ext_resource type="Script" uid="uid://3wugvfl4dyam" path="res://World/spawner.gd" id="1_e2tuy"]
 [ext_resource type="PackedScene" uid="uid://dqmwwivnsfag2" path="res://Enemies/Follower/base_enemy.tscn" id="2_rca5r"]
 [ext_resource type="PackedScene" uid="uid://d2je0kh5xrf6h" path="res://Enemies/Charger/charger_enemy.tscn" id="4_44sb5"]
 [ext_resource type="PackedScene" uid="uid://bi7ulh02i1l6b" path="res://Enemies/Ranger/ranger_enemy.tscn" id="5_c6uxj"]

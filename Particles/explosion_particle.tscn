@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmtxup7ad5ncp"]
 
-[ext_resource type="Script" path="res://Particles/single_use_particle.gd" id="1_2db48"]
+[ext_resource type="Script" uid="uid://ckn7dpi78pj2h" path="res://Particles/single_use_particle.gd" id="1_2db48"]
 [ext_resource type="Texture2D" uid="uid://qsl548ukjdo1" path="res://Particles/Dust.png" id="1_xh15d"]
 [ext_resource type="Texture2D" uid="uid://ce2iviamkukkc" path="res://Particles/Circle.png" id="2_mo6m0"]
 
 [sub_resource type="Curve" id="Curve_wnoda"]
-max_value = 1.5
+_limits = [0.0, 1.5, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.546, 1.2), 0.0, 0.0, 0, 0]
 point_count = 2
 

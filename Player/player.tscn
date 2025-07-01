@@ -1,16 +1,16 @@
 [gd_scene load_steps=19 format=3 uid="uid://bt0ob3h3frjya"]
 
-[ext_resource type="Script" path="res://Player/player.gd" id="1_bya84"]
+[ext_resource type="Script" uid="uid://cccj1yn5nhk6m" path="res://Player/player.gd" id="1_bya84"]
 [ext_resource type="AudioStream" uid="uid://oougyspv3pbv" path="res://Player/hit.wav" id="2_guquo"]
 [ext_resource type="PackedScene" uid="uid://bkikmnl820dgi" path="res://UI/pointer.tscn" id="2_m0lfc"]
 [ext_resource type="Texture2D" uid="uid://dlp4rlpdojk5k" path="res://Player/PlayerBody.png" id="2_p7gu6"]
 [ext_resource type="Texture2D" uid="uid://bvaqup62u4c35" path="res://World/Shadow.png" id="2_txikg"]
 [ext_resource type="AudioStream" uid="uid://dt5vtj7bflupt" path="res://Player/dash.wav" id="3_2ag5u"]
-[ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_awalr"]
+[ext_resource type="Script" uid="uid://co6cxpjs3vt3m" path="res://Components/HurtComponent.gd" id="3_awalr"]
 [ext_resource type="PackedScene" uid="uid://cmmsbrpej44j4" path="res://Particles/dust_particles.tscn" id="3_h1q21"]
 [ext_resource type="AudioStream" uid="uid://c0k1j6185talk" path="res://Player/focus_full.wav" id="4_dj3jf"]
 [ext_resource type="PackedScene" uid="uid://cbivcdy3q0y3" path="res://Particles/trail.tscn" id="5_wxoc8"]
-[ext_resource type="Shader" path="res://Player/flash.gdshader" id="6_rdh1k"]
+[ext_resource type="Shader" uid="uid://dp1opwxximug0" path="res://Player/flash.gdshader" id="6_rdh1k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gmxrr"]
 shader = ExtResource("6_rdh1k")
@@ -61,8 +61,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nit6e"]
 _data = {
-"RESET": SubResource("Animation_iqcad"),
-"idle": SubResource("Animation_hng20")
+&"RESET": SubResource("Animation_iqcad"),
+&"idle": SubResource("Animation_hng20")
 }
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_iframes_timer", "_attack_area", "_hurt_component", "sprite")]

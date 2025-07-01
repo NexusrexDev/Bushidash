@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctfv4l1ipbkwv"]
+[gd_scene load_steps=6 format=3 uid="uid://ctfv4l1ipbkwv"]
 
-[ext_resource type="Texture2D" uid="uid://byhboatjgfxbw" path="res://UI/Pixel.png" id="1_1hine"]
-[ext_resource type="Script" path="res://World/nex_logo.gd" id="1_xs57r"]
+[ext_resource type="Script" uid="uid://caaowwypgmlce" path="res://World/nex_logo.gd" id="1_xs57r"]
 [ext_resource type="Texture2D" uid="uid://cwb2d7t0tmrus" path="res://UI/nexlogo.png" id="2_oy3s2"]
 
 [sub_resource type="Animation" id="Animation_di7wp"]
@@ -55,18 +54,34 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ei4y"]
 _data = {
-"RESET": SubResource("Animation_di7wp"),
-"nex_logo": SubResource("Animation_4fkmw")
+&"RESET": SubResource("Animation_di7wp"),
+&"nex_logo": SubResource("Animation_4fkmw")
 }
 
 [node name="NexLogo" type="Node2D"]
 script = ExtResource("1_xs57r")
 
-[node name="BG" type="Sprite2D" parent="."]
-modulate = Color(0.133333, 0.12549, 0.203922, 1)
-position = Vector2(240, 180)
-scale = Vector2(60, 45)
-texture = ExtResource("1_1hine")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.12549, 0.203922, 1)
 
 [node name="NexLogo" type="Sprite2D" parent="."]
 position = Vector2(240, 180)
@@ -74,5 +89,5 @@ texture = ExtResource("2_oy3s2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_3ei4y")
+&"": SubResource("AnimationLibrary_3ei4y")
 }

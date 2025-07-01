@@ -66,7 +66,7 @@ func _early_patterns(available_enemies: Array, available_spawn_points: Array) ->
 func _late_patterns(available_enemies: Array, available_spawn_points: Array) -> Array:
 	var pattern := []
 	var max_randi : int = 5 if randi() % 101 <= 95 else 7
-	var min_randi : int = clamp(3 + ((GameManager.current_wave - 3) / 3), 3, max_randi)
+	var min_randi : int = clamp(3 + int((GameManager.current_wave - 3) / 3.0), 3, max_randi)
 	_target_enemies = randi_range(min_randi, max_randi)
 
 	for i in range(_target_enemies):

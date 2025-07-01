@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://itpa4i882d5k"]
 
-[ext_resource type="Script" path="res://UI/main_menu.gd" id="1_1jqwt"]
+[ext_resource type="Script" uid="uid://pbb1p11bgm5q" path="res://UI/main_menu.gd" id="1_1jqwt"]
 [ext_resource type="Theme" uid="uid://cidxqcswp8nf4" path="res://UI/game_ui.tres" id="2_5nwhw"]
 [ext_resource type="Texture2D" uid="uid://d1g4iw7u87jxo" path="res://UI/Logo.png" id="2_70l7n"]
 [ext_resource type="Texture2D" uid="uid://byhboatjgfxbw" path="res://UI/Pixel.png" id="4_dcdd8"]
@@ -46,7 +46,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.2, 0.6),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(480, 0)]
+"values": [Vector2(0, 0), Vector2(960, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -63,8 +63,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bnhue"]
 _data = {
-"RESET": SubResource("Animation_7obay"),
-"intro": SubResource("Animation_kgcyf")
+&"RESET": SubResource("Animation_7obay"),
+&"intro": SubResource("Animation_kgcyf")
 }
 
 [node name="MainMenu" type="Control"]
@@ -124,7 +124,7 @@ texture = ExtResource("4_dcdd8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_bnhue")
+&"": SubResource("AnimationLibrary_bnhue")
 }
 autoplay = "intro"
 speed_scale = 0.5

@@ -22,8 +22,8 @@ var current_wave : int = 0
 
 func _ready() -> void:
 	_camera = Camera2D.new()
-	_camera.anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
 	add_child(_camera)
+	_camera.position = Vector2(240, 180)
 	process_mode = PROCESS_MODE_ALWAYS
 
 func _set_combo_time(value : float) -> void:
