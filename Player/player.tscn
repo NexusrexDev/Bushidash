@@ -116,7 +116,7 @@ shape = SubResource("RectangleShape2D_ulqub")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_nit6e")
+&"": SubResource("AnimationLibrary_nit6e")
 }
 autoplay = "idle"
 

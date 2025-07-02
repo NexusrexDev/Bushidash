@@ -27,6 +27,7 @@ general/default_playback_type.web=0
 
 GameManager="*res://Singleton/game_manager.gd"
 SoundManager="*res://Singleton/sound_manager.gd"
+WebBus="*res://addons/WebBusPlugin/WebBus.gd"
 
 [debug]
 
@@ -39,6 +40,10 @@ window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/stretch/scale=2.0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/WebBusPlugin/plugin.cfg")
 
 [global_group]
 

@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 			SoundManager.play_sfx(_focus_full_sfx)
 			_can_dash = true
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	var mouse_condition: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
 	if mouse_condition:
 		if _can_dash:
