@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://dqmwwivnsfag2"]
 
-[ext_resource type="Script" path="res://Enemies/Follower/base_enemy.gd" id="1_cq31h"]
+[ext_resource type="Script" uid="uid://d085vbql3ikja" path="res://Enemies/Follower/base_enemy.gd" id="1_cq31h"]
 [ext_resource type="AudioStream" uid="uid://vm0bwmccufyh" path="res://Enemies/enemy_kill.wav" id="2_1ekkl"]
 [ext_resource type="Texture2D" uid="uid://bvaqup62u4c35" path="res://World/Shadow.png" id="2_mq4ea"]
 [ext_resource type="Texture2D" uid="uid://cnds3cy6d0ejl" path="res://Enemies/Follower/FollowerBody.png" id="2_wf4yi"]
-[ext_resource type="Script" path="res://Components/HurtComponent.gd" id="3_5nbbq"]
+[ext_resource type="Script" uid="uid://co6cxpjs3vt3m" path="res://Components/HurtComponent.gd" id="3_5nbbq"]
 [ext_resource type="PackedScene" uid="uid://cmmsbrpej44j4" path="res://Particles/dust_particles.tscn" id="3_ijvep"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_87akx"]
@@ -196,9 +196,9 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2okjg"]
 _data = {
-"RESET": SubResource("Animation_ejsrn"),
-"intro": SubResource("Animation_8qhvp"),
-"waddle": SubResource("Animation_vduaj")
+&"RESET": SubResource("Animation_ejsrn"),
+&"intro": SubResource("Animation_8qhvp"),
+&"waddle": SubResource("Animation_vduaj")
 }
 
 [node name="BaseEnemy" type="Area2D" node_paths=PackedStringArray("_sprite") groups=["enemy"]]

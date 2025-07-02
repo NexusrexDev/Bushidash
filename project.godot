@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Bushidash"
 run/main_scene="res://World/nex_logo.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.4")
 boot_splash/bg_color=Color(0.133333, 0.12549, 0.203922, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
@@ -27,6 +27,7 @@ general/default_playback_type.web=0
 
 GameManager="*res://Singleton/game_manager.gd"
 SoundManager="*res://Singleton/sound_manager.gd"
+WebBus="*res://addons/WebBusPlugin/WebBus.gd"
 
 [debug]
 
@@ -36,10 +37,13 @@ gdscript/warnings/untyped_declaration=2
 
 window/size/viewport_width=960
 window/size/viewport_height=720
-window/size/resizable=false
 window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 window/stretch/scale=2.0
-window/stretch/scale_mode="integer"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/WebBusPlugin/plugin.cfg")
 
 [global_group]
 
@@ -63,3 +67,4 @@ ui_click={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.85098, 0.627451, 0.4, 1)

@@ -20,15 +20,20 @@ var _default_timescale : float = 1.0
 
 var current_wave : int = 0
 
+var play_count : int = 0
+
 func _ready() -> void:
 	_camera = Camera2D.new()
-	_camera.anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
 	add_child(_camera)
+	_camera.position = Vector2(240, 180)
 	process_mode = PROCESS_MODE_ALWAYS
 
 func _set_combo_time(value : float) -> void:
 	combo_time = value
 	emit_signal(combo_time_updated.get_name(), combo_time)
+
+func add_count() -> void:
+	play_count += 1
 
 func restart_game() -> void:
 	score = 0
